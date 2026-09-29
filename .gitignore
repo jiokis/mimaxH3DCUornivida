@@ -1,0 +1,6 @@
+*.mp4
+*.png
+*.wav
+*.pyc
+__pycache__/
+finals/
