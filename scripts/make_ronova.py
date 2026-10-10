@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""《若娜瓦 · 崩解》15s 压迫感短片 v3 · Ref2VA 六段式
-v3 修正（用户反馈）：
-1. 眼睛 → 参照 <Picture 4> 的**大型发光红眼**（亮红虹膜+暗红巩膜+放射纹+外溢红光，风格化绘制）
-2. 转变机制 → 由她自己肩后的羽刃飘带驱动：飘带掀起展开成翼 → 层层增生 → 把人体吸收进去
-   （头是最后被吞没的），机制自洽、有因有果
-3. 构图生硬 → 转变全程**同一机位、同一站位连续生长**，翼体从她站立处升起，不跳到别处
-角色：若娜瓦（Ronova），死之执政，四影之一
-参考：<Picture 1>+<Picture 2> = 人形外观；<Picture 3> = 旧约天使终态；<Picture 4> = 眼睛设计
-配乐参照《苍白的骑行 O Mors》：厚重低频交响 / 9.6 起音每秒 / ~187BPM / E 心 + G 小调色彩
-总帧 358 ≈ 14.9s（7 镜：39/22/56/56/73/73/39）
+"""《若娜瓦 · 崩解》15s 压迫感短片 v4 · Ref2VA 官方六段式
+v4 修正（对照官方 ref-en.txt 规范 + 用户反馈）：
+1. 恢复官方格式：**只有六段**，删掉此前自造的 NEG 块（约束并入 detailed_description/retention_analysis）
+2. 天使变身 = <Picture 3> 的旧约天使本身（眼即图3 所绘）；<Picture 4> 的发光红眼**只用于背景天空**
+3. 音乐改用官方 <Audio N> + reference 标记引用参考曲风格；编制改**管风琴**
+4. 运镜按用户指定重排：大远景背影 → 近景回头斜睨 → 全身 → 转身 → 变形；运镜类型多样
+5. 镜头用官方时间戳格式「At 00:0X.XXX, the camera cuts to ...」
+参考绑定（全部在图内引用，不建独立 Picture 条目 —— 官方 §2.2）
+总帧 358 ≈ 14.9s（7 镜：39/39/39/56/73/73/39）
 """
 import os
 
@@ -17,180 +16,88 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prompts")
 os.makedirs(OUT, exist_ok=True)
 
 SUBJECTS = """subject_definitions:
-<Subject 1> (S1) is Ronova (若娜瓦), the Ruler of Death of Teyvat and one of the Four Shades, whose exact design is shown in <Picture 1> and <Picture 2>, two views of the same character wearing the same costume. She has very long flowing white hair that falls well past her waist, and CRIMSON RED eyes; her skin is pale. She wears an ornate black-and-crimson regalia: a tall crimson crown-piece of pointed spikes and swept blades rising from her head, a fitted black high-collared bodice crossed by crimson ribbons and black straps, long black gloves reaching above her elbows, a crimson and black layered skirt with white lace panels and trailing black ribbons, and long crimson streamers hanging from her shoulders. These shoulder streamers are the seed of what happens later in this video: they are not cloth but pairs of swept crimson feather-blades folded down along her back, and each blade carries a row of small closed eyes along its length, drawn in the same hand-drawn style as the eye in <Picture 4>. She has NO headset microphone in this video. Her voice, when she speaks, is a low, level, unhurried woman's voice.
-<Subject 2> is the world of this video in two opposed states. In its first state it is a vast sunlit meadow: a wide green grassland under a clear blue sky, tall grass moving in slow waves in a warm breeze, small white clouds drifting high, and soft afternoon sunlight across the field. In its second state the same world has come apart: the blue of the sky is eaten away into a flat black-red, the green grass blackens and stiffens into a dead black lawn, the clouds rot into dark stains, and the air fills with fine drifting black ash. In this second state the sky is also covered with the same drawn eyes, repeated at every scale across the whole sky.
-<Subject 3> is the final form that <Subject 1>'s own body becomes in this video, exactly as shown in <Picture 3>: an Old Testament angel, a colossal dark-crimson mass of unfolded wings in which many eyes of different sizes are open, with no human face, no human limbs and no human silhouette left - only the winged, many-eyed body, its surface glistening dark crimson.
-<Subject 4> is the eye that every eye in this video is drawn from, exactly as shown in <Picture 4>: a single large stylized eye in hand-drawn cel-shaded anime style - a deep black-red sclera, a brilliant glowing crimson iris with a thin bright rim, a narrow dark pupil, thin radiating lines running outward around the iris, and a soft crimson glow bleeding outward from the whole eye. It is a DRAWN eye: flat cel-shaded colour held inside a clean ink outline, drawn with the same line art and flat fills as the rest of her costume. The small eyes on her feather-blades, the eyes that open across the growing wings, and the eyes packed into the sky are all this same drawn eye, repeated at different sizes."""
+<Subject 1> (S1) is Ronova (若娜瓦), the Ruler of Death of Teyvat and one of the Four Shades, whose exact design is shown in <Picture 1> and <Picture 2>, two views of the same character wearing the same costume. She has very long flowing white hair that falls well past her waist, and CRIMSON RED eyes; her skin is pale. She wears an ornate black-and-crimson regalia: a tall crimson crown-piece of pointed spikes and swept blades rising from her head, a fitted black high-collared bodice crossed by crimson ribbons and black straps, long black gloves reaching above her elbows, a crimson and black layered skirt with white lace panels and trailing black ribbons, and long crimson streamers hanging from her shoulders that read as swept feather-blades, each carrying a row of small closed eyes along its length. She has NO headset microphone in this video. Her voice, when she speaks, is a low, level, unhurried woman's voice.
+<Subject 2> is the world of this video in two opposed states. In its first state it is a vast sunlit meadow: a wide green grassland under a clear blue sky, tall grass moving in slow waves in a warm breeze, small white clouds drifting high, and soft afternoon sunlight across the field. In its second state the same world has come apart: the blue of the sky is eaten away into flat black-red, the green grass blackens and stiffens into a dead black lawn, the clouds rot into dark stains, and the air fills with fine drifting black ash. In this second state the sky is covered with the large glowing eyes shown in <Picture 4>, repeated at every scale across the whole sky: each eye is a deep black-red sclera, a brilliant glowing crimson iris with a thin bright rim, a narrow dark pupil, thin radiating lines around the iris and a soft crimson glow bleeding outward, drawn as flat cel-shaded shapes with clean dark outlines in the same hand-drawn language as her costume.
+<Subject 3> is the final form that <Subject 1>'s own body becomes in this video, exactly as shown in <Picture 3>: an Old Testament angel, a colossal dark-crimson mass of unfolded wings carrying many open eyes of different sizes, with no human face, no human limbs and no human silhouette left. Its form, its wings and every eye on it are taken exactly from <Picture 3> and are not altered.
+<Audio 1> is the music-style and motive reference for the audience-only score of this video: a dark, heavy cue built on a slow tread under a dense stream of fast equal notes with a fast driving pulse and a modal colour centred on E with the minor shade of G. Only its motives, density, pulse and modal colour are referenced; its signal is not copied."""
 
-STYLE = ("The target video is 2D-animated hand-drawn cel-shaded anime in the official Genshin Impact style: bold "
-         "clean dark outlines, flat vibrant colour blocking with simple two-tone cel shading, painterly highlights "
-         "on hair, cloth and metal, crisp line art, and hard dramatic light. This is a hand-drawn 2D animated film "
-         "throughout - the character, the meadow and the angel are drawn with ink lines and flat colour. Every eye "
-         "in this video, whether closed on her feather-blades, opening across the growing wings or packed into the "
-         "sky, is drawn from the single eye shown in <Picture 4>: a flat cel-shaded shape with a clean dark "
-         "outline, a deep black-red sclera, a glowing crimson iris and a soft bleeding glow. The visual arc of the "
-         "video runs from clean bright daylight cel shading in the opening shots to heavy black-red shadow with "
-         "deep crushed blacks as the world comes apart, so the image itself grows darker and heavier as the video "
-         "proceeds.")
-
-FRAMING = ("The framing is built for pressure rather than for beauty, and it never jumps. Every shot is a medium "
-           "shot or a medium close-up and the camera stays low, looking slightly up, for the whole video from the "
-           "moment she turns. There are no wide establishing shots and no distant landscape views, so the sky and "
-           "the grass always press in close behind and around her. The camera creeps forward in a very slow, very "
-           "small push that never stops, so she grows slowly larger in the frame and the viewer is made to feel "
-           "small. Crucially, the growth is continuous: <Subject 3> rises out of the exact spot where <Subject 1> "
-           "stands, at the same distance and the same low angle, so her body, the unfolding wings and the final "
-           "mass all share one uninterrupted composition and the horizon line never moves. Her face, whenever it "
-           "is toward the lens, has both of her crimson eyes clearly readable. There is no camera shake, no fast "
-           "cutting and no scale jump anywhere in this video.")
-
-TIMING = ("The timing of the turn is the spine of the first half of this video and it is fixed as a five-beat "
-          "movement spread across [Shot 3] and [Shot 4]. [Shot 3] holds the first three beats: for its first "
-          "third <Subject 1> stands completely still with her back to the lens and only her hair and her folded "
-          "feather-blades moving in the dead air; in its second third her HEAD ALONE begins to rotate and nothing "
-          "else moves, the chin crossing her shoulder until her face is seen in profile; and in its final third "
-          "the rotation stops dead and holds in profile, her face half toward the lens, and she does not blink. "
-          "[Shot 4] holds the last two beats: in its first two thirds her shoulders and then her whole chest and "
-          "torso follow the head through and the body rotates as one unit until she faces the lens squarely, with "
-          "her white hair swinging out and settling behind her; and in its final third the rotation is complete "
-          "and she stands perfectly still with both crimson eyes locked into the lens. At no point does the whole "
-          "body turn in one continuous motion: the head always leads, the body always arrives after it, and each "
-          "phase comes to a full stop before the next one begins.")
-
-MECHANISM = ("The transformation is the second half of this video and it happens as one continuous unfolding, "
-             "never as a swap. It is driven by the folded feather-blades she already wears on her back, in five "
-             "stages. First, the blades she carries begin to stir and then LIFT: the two shoulder streamers rise "
-             "away from her back and spread outward and upward into the first pair of wings, and the small closed "
-             "eyes set along their length open one after another, beginning at the tips. Second, MORE blades "
-             "unfold from behind those first two, layer under layer, each new layer larger than the one before, "
-             "until a stack of opening wings rises behind and above her shoulders while she is still standing "
-             "there as a human figure. Third, the body is drawn in: her arms are absorbed first, the crimson "
-             "blades closing over them and swallowing them into the mass, then her torso is taken, the black "
-             "bodice and the ribbons pulling apart into the same dark crimson surface, so that what is left "
-             "standing is her white-haired HEAD AND SHOULDERS above a growing wall of wings. Fourth, the eyes "
-             "multiply: as each new layer opens, its eyes open with it, so the count of open eyes climbs with the "
-             "count of wings and the mass begins to rise higher than her head. Fifth and last, her head is the "
-             "final human part to go: the crown-piece tips back and the head is closed over and absorbed by the "
-             "wings from behind and above, the white hair pulled into the dark crimson surface last of all, and "
-             "only then does the full winged, many-eyed body of <Subject 3> continue to unfold upward on its own "
-             "until it overflows the frame. No part of this happens off screen and no stage is skipped: the "
-             "wings always grow out of the blades she was already wearing, and the mass always grows out of her "
-             "own body at her own position.")
-
-NEG = ("Keep every frame free of storyboard line art, sketch lines, labels, captions, watermarks, on-screen "
-       "text, duplicated or mirror-image figures, extra limbs, extra hands and extra fingers, and keep the "
-       "rendering hand-drawn cel-shaded anime with flat colour and clean outlines. Every eye is the drawn eye of "
-       "<Picture 4> - a flat cel-shaded shape with a clean outline, a deep black-red sclera, a glowing crimson "
-       "iris and a soft bleeding glow - and the eyes in the sky are that same drawn eye repeated at many sizes.")
-
-SHOTS = [
- # 1 美景背影（低角度埋压迫伏笔）
- "[Shot 1] At 0.0 seconds, a medium shot seen from behind and slightly below, looking up at <Subject 1> from the waist up, standing in the first state of <Subject 2>: her long white hair and the folded crimson feather-blades on her back move slowly in the warm breeze, and beyond her the tall green grass runs away in slow silver waves under the clear blue sky with small white clouds drifting high. She faces away from the lens, so her face is not visible and not the focus. The camera creeps forward with very small amplitude at the slowest speed, so she grows a little larger against the sky. The sound in this shot is only the soft dry hiss of the wind through the tall grass and one distant bird. She does not speak.",
- # 2 崩解开始
- "[Shot 2] At 1.6 seconds, a medium close-up of the tall grass at the right edge of the frame in <Subject 2>, with <Subject 1>'s still back and white hair and the edges of her folded blades filling the left side of the frame, seen from slightly below: the grass blades in the near foreground blacken and stiffen into brittle black stalks that spread inward in a slow creeping line, the first blades of her folded wings begin to stir and lift a little away from her back, and above the horizon a thin dark seam opens in the blue sky and bleeds a dull dark red along its edge; inside the seam the first few drawn eyes begin to appear as small flat cel-shaded shapes. A faint black ash begins to drift across the light. The camera creeps forward with very small amplitude at the slowest speed, never stopping. The sound in this shot is the wind thinning into a low dry rattle and a very low far-off rumble under the ground. She does not speak.",
- # 3 转身前三拍
- "[Shot 3] At 3.4 seconds, the camera sits LOW and looks up at <Subject 1> in a medium close-up from the chest up, still from behind, and her folded blades are now visibly lifted and parted behind her shoulders, the small eyes along their length beginning to open from the tips inward. The turn is a controlled three-beat movement and each beat is separated by a full stop: for the first third of this shot she is completely motionless with her back to the lens while only her hair and the lifted blades drift in the dead air; in the second third her HEAD ALONE turns - her neck rotates and the chin crosses her shoulder, the white hair sliding across her collar, while her shoulders and her back stay exactly where they are; and in the final third the head rotation stops dead and holds in profile, so only the edge of her face and one crimson eye are visible against the black-red sky. She does not blink during the hold. Behind her the sky is now half eaten into flat black-red and the grass is black to the horizon, with the drawn eyes packed into the sky clearly visible. The camera creeps forward with very small amplitude at the slowest speed throughout all three beats. The sound in this shot is the low rumble rising under a dead, airless silence, and a faint dry rustle as the blades part. She does not speak.",
- # 4 转身后两拍
- "[Shot 4] At 5.6 seconds, the camera sits LOW and looks up at <Subject 1> in a medium close-up from the chest up, continuing directly from the held profile at the end of the previous shot, with her parted blades now spread wide on either side of her shoulders and their opened eyes glowing softly. In the first two thirds of this shot her shoulders and then her whole chest and torso follow the head: the rotation travels down through her shoulders and her ribs, her white hair swings out and settles, and the body arrives squarely facing the lens with both crimson eyes clearly readable and open, her brows level, her lips closed and still; her expression does not change at all. In the final third the rotation is complete and she is perfectly still, her gaze locked into the lens, held without a single further movement, while behind her a second pair of blades quietly unfolds from under the first. The camera creeps forward with very small amplitude at the slowest speed. The sound in this shot is the low rumble continuing under an airless silence and the soft unfolding of the new blades. She does not speak; her lips stay closed.",
- # 5 转变第二阶段：翼层层展开、手臂先被吸收
- "[Shot 5] At 8.0 seconds, the camera sits LOW and looks up at <Subject 1> in a medium close-up, and the unfolding begins in earnest: the two lifted blades spread outward and upward into the first full pair of wings, and more blades unfold from behind them layer under layer, each new layer larger than the last, so a stack of opening wings rises up behind and above her shoulders while she is still standing there as a human figure. The small eyes along every blade open from the tips inward as each layer appears, each one the drawn glowing crimson eye of <Picture 4>, and their soft glow lights the underside of the wings. Her body is then drawn in: the crimson blades close over her arms and swallow them into the mass first, the black gloves and flared cuffs disappearing into the dark crimson surface, and the growing wings begin to rise higher than her head. Her white-haired head and shoulders remain above the wall of wings, and she keeps her gaze fixed on the lens without blinking throughout. Above her the sky is now entirely flat black-red and covered with the drawn eyes at every size, the largest of them turning slowly to orient toward the lens. The camera creeps forward with very small amplitude at the slowest speed. The sound in this shot is the dense low rumble swelling, a dry layered rustle as each new wing unfolds, and a chorus of low voices entering underneath. She does not speak.",
- # 6 转变第三阶段：躯干被吸收、头最后被吞没
- "[Shot 6] At 11.0 seconds, the camera sits LOW and looks up in a medium close-up that keeps the same station and the same low angle as the previous shot, so the mass grows out of the very same spot: the wings now fill and overflow the frame around her, unfolding in layer after layer of dark crimson, their surface covered in the drawn glowing eyes of <Picture 4>, and her torso is taken next - the black bodice, the crossed ribbons and the crimson skirt pull apart and run into the same dark crimson surface of the wings, so that only her white-haired head and the last of her shoulders are left above the wall of unfolding wings. Then her head is the final human part to go: the tall crown-piece tips slowly back and the head is closed over and absorbed by the wings from behind and above, the white hair drawn into the dark crimson surface last of all, and she does not look away from the lens until the surface closes over her. Only then does the full winged body of <Subject 3>, as shown in <Picture 3>, continue to unfold upward on its own, its eyes opening all across it as the new layers spread. Below, the meadow is a dead black lawn to the black horizon; above, the sky is packed with the same drawn eyes. The camera creeps forward with very small amplitude at the slowest speed. The sound in this shot is the dense low rumble at its heaviest with a slow heavy wingbeat deep in it and the low voices rising. Nothing speaks.",
- # 7 定格压迫
- "[Shot 7] At 13.4 seconds, the camera holds LOW, at the same station, looking up in a tight medium close-up on part of the mass of <Subject 3> with the eye-packed black-red sky behind it: several of the largest drawn eyes in the nearest wings are fixed directly into the lens and they do not look away, drawn exactly as the eye in <Picture 4> with the glowing crimson iris and the soft bleeding glow, the wings shifting only slightly, the black lawn below and the packed drawn eyes above both visible at the edges of the frame. The camera creeps forward with the smallest amplitude in the whole video and the frame stays otherwise still, so the pressure holds without release. The sound in this shot is the low rumble and the low voices holding a single sustained note that does not resolve. Nothing speaks.",
-]
+SUMMARY = """summary:
+[reference generation + audio reference] The target video is a single continuous fifteen-second 2D-animated scene in the official Genshin Impact style in which <Subject 1>, Ronova, stands with her back to the lens in a sunlit meadow in <Subject 2>, looks back over her shoulder at the lens, turns her whole body to face it, and then comes apart and transforms into the Old Testament angel of <Picture 3> while <Subject 2> decays from sunlit grassland into a black lawn under a sky packed with the glowing eyes of <Picture 4>. <Subject 1>'s identity and costume come from <Picture 1> and <Picture 2>, the angel form comes from <Picture 3>, the eyes covering the broken sky come from <Picture 4>, and <Audio 1> supplies the motives, density, pulse and modal colour of the score."""
 
 RET = """retention_analysis:
-<Subject 1> (appears in [Shot 1] seen from behind, in [Shot 2], [Shot 3] and [Shot 4] as a medium shot or medium close-up through the turn, in [Shot 5] with her arms already absorbed into the growing wings and her head and shoulders still human, and in [Shot 6] with her torso absorbed and her head the last human part to be closed over): fully_preserved - Ronova's identity, her very long flowing white hair, her crimson red eyes, her pale skin, the tall crimson crown-piece of pointed spikes and swept blades, the fitted black high-collared bodice with crimson ribbons and black straps, the long black gloves above the elbow, the crimson and black layered skirt with white lace panels and trailing black ribbons, and the folded crimson feather-blades on her back with their rows of small eyes are all retained wherever her human form appears, up to and through the moment her head is absorbed.
-<Subject 2> (appears in every shot, in its first sunlit state in [Shot 1] and in its second broken state from [Shot 2] onward): fully_preserved - the same grassland and the same sky are carried through both states: the tall green grass becoming the dead black lawn, the clear blue sky becoming the flat black-red sky, the white clouds becoming dark stains, and the clean afternoon light becoming heavy black-red shadow with drifting black ash; and in the second state the sky carries the same drawn eyes, repeated at many sizes.
-<Subject 3> (appears from the middle of [Shot 5] onward as the final state of <Subject 1>'s own body, unfolding from the blades she already wore and growing out of the spot where she stood, exactly as shown in <Picture 3>): fully_preserved - the colossal dark-crimson winged and many-eyed mass, with no human face and no human body, is retained exactly as shown in <Picture 3>.
-<Subject 4> (the drawn eye of <Picture 4> appears as the small closed-then-open eyes along her feather-blades in [Shot 2] to [Shot 5], as the multiplied open eyes across the growing wings in [Shot 5] and [Shot 6], and as the eyes packed into the sky and the largest eyes turned into the lens in [Shot 6] and [Shot 7]): fully_preserved - the deep black-red sclera, the brilliant glowing crimson iris with its thin bright rim, the narrow dark pupil, the thin radiating lines and the soft bleeding crimson glow are retained in every eye at every size."""
+<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4] and [Shot 5], and up to the moment her head is absorbed in [Shot 6]): fully_preserved - Ronova's identity, her very long flowing white hair, her crimson red eyes, her pale skin, the tall crimson crown-piece of pointed spikes and swept blades, the fitted black high-collared bodice with crimson ribbons and black straps, the long black gloves above the elbow, the crimson and black layered skirt with white lace panels and trailing black ribbons, and the folded crimson feather-blades with their rows of small eyes are retained wherever her human form appears.
+<Subject 2> (appears in every shot, in its first sunlit state in [Shot 1] and in its second broken state from [Shot 2] onward): fully_preserved - the same grassland and the same sky are carried through both states; in the second state the sky carries the glowing eyes of <Picture 4> repeated at many sizes.
+<Subject 3> (appears in [Shot 6] and [Shot 7] as the final state of <Subject 1>'s own body): fully_preserved - the colossal dark-crimson winged mass with its many open eyes is retained exactly as shown in <Picture 3>, including its own eyes as drawn there, and its form is not altered.
+<Audio 1>: reference - its slow tread, its dense stream of fast equal notes, its fast driving pulse and its modal colour centred on E with the minor shade of G guide the score, without copying the original signal."""
 
-SUMMARY = ("[reference generation] The target video is a single continuous fifteen-second 2D-animated scene in "
-           "the official Genshin Impact style, in which <Subject 1>, Ronova the Ruler of Death, stands with her "
-           "back to the lens in a sunlit meadow, turns - her head first, her body after it, in a controlled "
-           "sequence of held beats - and then comes apart in a single continuous unfolding: the crimson "
-           "feather-blades she already wears on her back lift and spread into the first pair of wings, more blades "
-           "unfold layer under layer and their eyes open from the tips inward, her arms and then her torso are "
-           "absorbed into the mass so that only her white-haired head and shoulders are left above the wall of "
-           "wings, and her head is the last human part to be closed over and swallowed, after which the full "
-           "winged many-eyed body of <Subject 3>, as shown in <Picture 3>, unfolds upward out of the same spot "
-           "until it overflows the frame beneath a sky packed with the drawn glowing eyes of <Picture 4>. The "
-           "camera never jumps: it stays low and looking up at the same station throughout, creeping forward in a "
-           "very slow push that never stops, so the wings and the final mass grow out of her own body in one "
-           "uninterrupted composition. The whole video carries one complete piece of music that begins thin and "
-           "high in the daylight and grows into a heavy, dense, dark orchestral mass with a driving pulse and a "
-           "low choir, ending on a single sustained low chord that is held without resolving and decays naturally "
-           "over the last shot without being cut off. <Picture 1> and <Picture 2> supply her identity and costume, "
-           "<Picture 3> supplies the form her body becomes, and <Picture 4> supplies the design of every eye in "
-           "the video; none of them serve as a concrete first or last frame.")
+DESC = """detailed_description:
+The target video is 2D-animated hand-drawn cel-shaded anime in the official Genshin Impact style: bold clean dark outlines, flat vibrant colour blocking with simple two-tone cel shading, painterly highlights, crisp line art and hard dramatic light, drawn with ink lines and flat colour throughout. Every eye belonging to <Subject 2> is drawn from the eye shown in <Picture 4> as a flat cel-shaded shape with a deep black-red sclera, a glowing crimson iris and a soft bleeding glow. The visual arc runs from clean bright daylight in the opening shots into heavy black-red shadow with deep crushed blacks, so the image grows darker and heavier as the world comes apart. Every shot is framed so that the sky and the grass press in behind and around her, and the camera creeps forward in a very slow push that never stops from the moment she looks back, so she grows slowly larger and the viewer is made to feel small.
+[Shot 1] A wide shot of the first state of <Subject 2> frames the whole sunlit meadow from a low position, with <Subject 1> standing small at the centre of the frame with her back to the lens: her long white hair and the folded crimson feather-blades on her back move slowly in the warm breeze, tall green grass runs away in slow silver waves toward the horizon, and small white clouds drift high in the clear blue sky. Her face is away from the lens and is not the subject of the shot. The camera pushes in with small amplitude at slow speed, so she grows slowly larger against the sky. The sound is only the soft dry hiss of wind through tall grass and one distant bird. She does not speak.
+[Shot 2] At 00:01.625, the camera cuts to a close-up of <Subject 1> from the shoulders up, seen from behind and slightly below: she turns her head back over her shoulder and looks at the lens from the side, her chin held low, her gaze coming to the viewer sidelong from the corners of her crimson eyes without her body moving at all, and her white hair slides across her shoulder as the head comes round. Behind her the first black seam opens in the blue sky and bleeds a dull dark red along its edge, the first blades of her folded wings stir and lift slightly away from her back, and fine black ash begins to drift across the light. The camera arcs slowly around her with small amplitude at slow speed, swinging from behind her toward her profile as the glance lands. The sound is the wind thinning into a low dry rattle and a very low far-off rumble under the ground. Her lips stay closed and she does not speak.
+[Shot 3] At 00:03.250, the camera cuts to a full shot of <Subject 1> standing in the meadow of <Subject 2>, shown complete from the crown of her head to her feet, still turned three-quarters away from the lens with one crimson eye visible in profile: her folded blades are now fully lifted and parted behind her shoulders in a dark crimson fan, the small eyes along them opening from the tips inward, and the grass around her feet has already blackened into dead black stalks while the sky behind is half eaten into flat black-red. The camera pulls out with small amplitude at slow speed, opening the frame around her as the blades part. The sound is the low rumble rising, a faint dry rustle as the blades part, and a dead, airless silence underneath. Her lips stay closed and she does not speak.
+[Shot 4] At 00:04.875, the camera cuts to a medium close-up of <Subject 1> from the chest up, seen from a low position as she turns her whole body to face the lens: the rotation is led by her head and travels down through her shoulders and her ribs, her white hair and the parted blade-fan swinging out and settling behind her, until she faces the lens squarely with both crimson eyes clearly readable and open, her brows level and her lips closed and still. Her expression does not change at all. Behind her the sky is now entirely flat black-red and the grass is a dead black lawn to the horizon. The camera arcs with small amplitude at slow speed, keeping pace with the rotation and arriving in front of her as the turn completes, then holds her still and locked into the lens. The sound is the low rumble continuing under an airless silence and the light rustle of the blades settling. Her lips stay closed and she does not speak.
+[Shot 5] At 00:07.208, the camera cuts to a medium close-up of <Subject 1> from the chest up, and the unfolding begins in earnest: the parted blades spread outward and upward into the first full pair of wings, more blades unfold from behind them layer under layer with each layer larger than the last, and the small eyes along every blade open as each layer appears. Her arms are then absorbed into the mass first - the crimson blades close over them and swallow the black gloves and flared cuffs into the dark crimson surface - while her white-haired head and shoulders remain above the wall of wings and her gaze stays fixed on the lens. Above her, the sky is entirely flat black-red and covered with the glowing eyes of <Picture 4>, and the largest of them begin to turn slowly toward the lens. The camera pedestals up with small amplitude at slow speed, rising as the wings rise, so the unfolding stack of wings and her still-human head share the frame the whole way. The sound is a dense low rumble swelling, a dry layered rustle as each new wing unfolds, and a chorus of low voices entering underneath. Her lips stay closed and she does not speak.
+[Shot 6] At 00:10.250, the camera cuts to a low shot looking up as the wings now fill and overflow the frame around her: her torso is taken next - the black bodice, the crossed ribbons and the crimson skirt pull apart and run into the same dark crimson surface - so that only her white-haired head and the last of her shoulders are left above the wall of unfolding wings, and then her head is the final human part to go as the tall crown-piece tips slowly back and the head is closed over and absorbed by the wings from behind and above, the white hair drawn into the dark crimson surface last of all, with her gaze held on the lens until the surface closes over her. Only then does the full winged body of <Subject 3>, exactly as shown in <Picture 3> with its own many open eyes, continue to unfold upward on its own and fill the sky. Below, the meadow is a dead black lawn to the black horizon. The camera tilts up with small amplitude at slow speed, following the mass as it rises out of her own position and overflows the top of the frame. The sound is the dense low rumble at its heaviest with a slow heavy wingbeat deep in it and the low voices rising. She does not speak.
+[Shot 7] At 00:13.292, the camera cuts to a low static shot on part of the mass of <Subject 3> with the eye-covered black-red sky behind it: several of the largest eyes of the winged mass, exactly as drawn in <Picture 3>, are fixed directly into the lens and do not look away, the wings shifting only slightly, while the dead black lawn below and the packed glowing eyes of <Picture 4> above both remain visible at the edges of the frame. The camera creeps forward with the smallest amplitude in the whole video and the frame is otherwise still, so the pressure holds without release. The sound is the low rumble and the low voices holding a single sustained note that does not resolve. Nothing speaks."""
 
-SOUNDSCAPE = """overall_soundscape:
-The sound of the video moves from an open, airy meadow into a sealed, airless, low space. [Shot 1] only the soft dry hiss of wind through tall grass and one distant bird, with the air wide and open. [Shot 2] the wind thinning into a low dry rattle, a faint crackle as the grass stiffens black, a soft dry stir as her folded blades lift, and a very low far-off rumble coming up under the ground. [Shot 3] the wind and the bird gone entirely - a dead, airless silence with the low rumble rising underneath it, one soft hair-thin sound as her head turns, and a faint dry rustle as the blades part. [Shot 4] the low rumble continuing under the silence and the soft unfolding of a new pair of blades behind her. [Shot 5] a dense low rumble swelling, a dry layered rustle as each new wing unfolds and each row of eyes opens, and fine ash drifting audibly past the microphone. [Shot 6] the rumble at its heaviest with a slow heavy wingbeat deep in it, the layered rustle of the wings closing over her, and the low voices rising. [Shot 7] the rumble and a single unbroken low tone holding without resolving, and nothing else at all."""
+SOUND = """overall_soundscape:
+An open, airy meadow becomes a sealed, airless, low space. [Shot 1] only the soft dry hiss of wind through tall grass and one distant bird, with the air wide and open. [Shot 2] the wind thinning into a low dry rattle, a faint crackle as the grass stiffens black, a soft dry stir as her folded blades lift, and a very low far-off rumble coming up under the ground. [Shot 3] the rumble rising, a faint dry rustle as the blades part, and a dead airless silence underneath. [Shot 4] the low rumble continuing under the silence and the light rustle of the blades settling. [Shot 5] a dense low rumble swelling, a dry layered rustle as each new wing unfolds, and fine ash drifting audibly past. [Shot 6] the rumble at its heaviest with a slow heavy wingbeat deep in it and the layered rustle of the wings closing over her. [Shot 7] the rumble and a single unbroken low tone holding without resolving, and nothing else at all."""
 
 MUSIC = """non_diegetic_music:
-One complete piece of music runs through the whole video, written as a single continuous escalation with a clear opening, a turning point, a transformation and a held final chord - not a loop and not a fade-out. Its style and its motives are taken from a dark symphonic funeral-march cue: a very heavy low-register orchestral mass, a dense continuous stream of fast equal notes, a fast driving pulse, and a modal colour centred on E with the minor shade of G. It is scored for low strings and cellos, low brass, timpani, a low male choir and one high shimmering celesta, written only in instruments, register, tempo, texture and dynamics with no mood words.
-- Opening ([Shot 1]): one high shimmering celesta figure in the upper register, thin and bright and widely spaced, over a barely audible low string drone; the texture is two voices, the dynamics are piano, and there is no pulse at all - the daylight is empty and open.
-- Turning point ([Shot 2], [Shot 3] and [Shot 4]): the low strings enter properly and begin a very slow, very quiet repeated figure, and this figure TIGHTENS IN STEP WITH THE TURN: it holds at its most sparse through the still beat of [Shot 3], adds one note as the head alone turns, holds again through the arrested profile, then takes hold properly as the shoulders follow in [Shot 4] and settles into a steady tread at the moment her gaze locks; the timpani adds a single soft stroke on each shot and the celesta figure moves down a step and repeats; the texture grows to three voices, the dynamics rise to mezzo-piano.
-- Unfolding ([Shot 5] and [Shot 6]): the tempo takes hold at a fast driving pulse near 188 beats per minute, the low strings and cellos break into a dense continuous stream of fast equal notes at roughly nine attacks per second, and this stream LAYERS UPWARD IN STEP WITH THE WINGS - each time a new layer of wings opens in the picture, one more voice is added and the register climbs, so the music thickens exactly as the wings do; the low brass enters with long heavy chords, the timpani pounds on the beat and the low male choir enters underneath on one sustained note; the dynamics rise through forte and the texture is at its fullest as her head is absorbed.
-- Held ending ([Shot 7]): the fast stream of notes stops and the whole orchestra lands together on one massive low chord centred on E, the low male choir holding it, the timpani rolling softly underneath and one high celesta note ringing over the top; this single chord is held without resolving, with no return to the home cadence, and it sustains across the final shot and decays naturally over the final two seconds of the video, ending exactly with the frame. The piece is complete in itself and is never cut off."""
+One complete piece of audience-only score runs through the whole video, written as a single continuous escalation with a clear opening, a turning point, a transformation and a held final chord, and played on a large pipe organ with its full pedal division and a low male choir over it. Its motives, its density, its pulse and its modal colour centred on E with the minor shade of G follow <Audio 1>, while its instrumentation is the organ rather than an orchestra.
+- Opening ([Shot 1]): one thin high organ stop alone in the upper register, widely spaced single notes over a barely audible low pedal point; there is no pulse and the dynamics are piano, so the daylight is empty and open.
+- Turning point ([Shot 2], [Shot 3] and [Shot 4]): the pedals enter with a slow heavy tread and the manuals add a quiet repeated figure, and this figure TIGHTENS IN STEP WITH THE TURN AND THE GLANCE: it stays most sparse through the glance in [Shot 2], adds one note as the blades part in [Shot 3], and takes hold properly as the body completes the rotation in [Shot 4], settling into a steady tread at the moment her gaze locks; the dynamics rise to mezzo-piano.
+- Unfolding ([Shot 5] and [Shot 6]): the manuals break into a dense continuous stream of fast repeated notes at roughly nine attacks per second, with fast driving pulses near 188 beats per minute, over full pedals that roll under each new layer of wings in step with the picture; the organ adds thick added-note clusters and the low male choir enters on one sustained note; each time a new layer of wings opens, one more rank is drawn and the register climbs, so the organ thickens exactly as the wings do; the dynamics rise through forte and the texture is at its fullest as her head is absorbed.
+- Held ending ([Shot 7]): the fast figures stop and the organ lands on one massive low chord centred on E with the full pedal division and the choir holding it, with no return to the home cadence; this single chord is held without resolving across the final shot and decays naturally over the final two seconds of the video, ending exactly with the frame. The piece is complete in itself and is never cut off."""
 
-lines = [
-    SUBJECTS, "",
-    "summary:", SUMMARY, "",
-    RET, "",
-    "detailed_description:", STYLE + " " + FRAMING + " " + TIMING + " " + MECHANISM,
-]
-for s in SHOTS:
-    lines.append(s)
-lines += ["", SOUNDSCAPE, "", MUSIC, "", NEG]
-
+content = "\n\n".join([SUBJECTS, SUMMARY, RET, DESC, SOUND, MUSIC]) + "\n"
 p = os.path.join(OUT, "ronova_collapse.txt")
-open(p, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+open(p, "w", encoding="utf-8").write(content)
 print("wrote %s  %d B" % (os.path.basename(p), os.path.getsize(p)))
-print("7 镜 × 358 帧 ≈ 14.9s · 五阶段转变机制 · 眼照图4")
+print("7 镜 × 358 帧 ≈ 14.9s · 官方六段式 · 管风琴配乐")
 
-# ---------- 自检 ----------
+# ---------- 对照官方规范自检 ----------
 import re
-allshots = " ".join(SHOTS)
-print("\n=== ① 眼睛：参照图4（大型发光红眼）===")
-eye = [("图4 为眼设计源", "<Subject 4> is the eye that every eye in this video is drawn from"),
-       ("暗红巩膜", "deep black-red sclera"),
-       ("发光红虹膜+亮边", "brilliant glowing crimson iris with a thin bright rim"),
-       ("窄瞳", "narrow dark pupil"),
-       ("放射纹", "thin radiating lines"),
-       ("外溢红光", "soft crimson glow bleeding outward"),
-       ("声明为绘制非写实", "It is a DRAWN eye"),
-       ("羽刃小眼=图4", "drawn in the same hand-drawn style as the eye in <Picture 4>")]
-for name, key in eye:
-    print(f"  {name}: {'✓' if key in (SUBJECTS + STYLE + allshots + NEG) else '✗'}")
-wet = re.findall(r"\bwet\b|\bglassy\b|lens-like|photographic eyeball", SUBJECTS + STYLE + allshots)
-print(f"  写实眼词残留: {'无 ✓' if not wet else wet}")
+txt = content
+print("\n=== ① 官方格式合规（只有六段）===")
+secs = re.findall(r"^(subject_definitions|summary|retention_analysis|detailed_description|overall_soundscape|non_diegetic_music):", txt, re.M)
+print(f"  段落顺序: {secs}")
+print(f"  恰为官方六段: {'✓' if secs == ['subject_definitions','summary','retention_analysis','detailed_description','overall_soundscape','non_diegetic_music'] else '✗'}")
+print(f"  非官方 NEG 块: {'已删除 ✓' if 'Keep every frame free of' not in txt else '✗ 仍存在'}")
+print(f"  summary 任务类型前缀: {'✓' if txt.split('summary:')[1].strip().startswith('[reference generation + audio reference]') else '✗'}")
+print(f"  官方时间戳格式(At 00:0X.XXX, the camera cuts to): {len(re.findall(r'At 00:[0-9]{2}[.][0-9]{3}, the camera cuts to', txt))} 处（应 6）")
 
-print("\n=== ② 转变机制（五阶段，由她自己的羽刃驱动）===")
-stages = [("阶段1 飘带掀起展开成首对翼", "the blades she carries begin to stir and then LIFT"),
-          ("阶段2 层层增生、眼逐排睁开", "MORE blades unfold from behind those first two, layer under layer"),
-          ("阶段3 手臂先被吸收", "her arms are absorbed first"),
-          ("阶段3b 躯干被吸收、只剩头肩", "her white-haired HEAD AND SHOULDERS above a growing wall of wings"),
-          ("阶段4 眼随翼增生而倍增", "the count of open eyes climbs with the count of wings"),
-          ("阶段5 头是最后被吞没的", "her head is the final human part to go"),
-          ("无跳变/不在画外发生", "No part of this happens off screen and no stage is skipped"),
-          ("翼从她身上长出", "the wings always grow out of the blades she was already wearing")]
-for name, key in stages:
-    print(f"  {name}: {'✓' if key in MECHANISM else '✗'}")
+print("\n=== ② 参考标签用法（官方 §2.2 不建独立 Picture 条目）===")
+print(f"  独立 <Picture N> 条目: {len(re.findall(r'^<Picture [0-9]>', txt, re.M))} 个（应 0）")
+print(f"  <Audio 1> 定义: {'✓' if '<Audio 1> is the music-style' in txt else '✗'}")
+print(f"  <Audio 1> retention 用 reference 标记: {'✓' if '<Audio 1>: reference' in txt else '✗'}")
 
-print("\n=== ③ 构图连续性（不生硬）===")
-cont = [("同机位同角度", "the same station and the same low angle"),
-        ("从她站位生长", "grows out of the exact spot where <Subject 1> stands"),
-        ("地平线不动", "the horizon line never moves"),
-        ("无尺度跳变", "no scale jump"),
-        ("单一不间断构图", "one uninterrupted composition")]
-for name, key in cont:
-    print(f"  {name}: {'✓' if (key in FRAMING + MECHANISM + allshots) else '✗'}")
+print("\n=== ③ 变身 = 图3 旧约天使（图4 只管背景）===")
+print(f"  天使取自图3: {'✓' if 'exactly as shown in <Picture 3>' in txt else '✗'}")
+print(f"  天使眼即图3所绘: {'✓' if 'including its own eyes as drawn there' in txt else '✗'}")
+print(f"  图4 仅用于背景天空: {'✓' if 'the sky is covered with the large glowing eyes shown in <Picture 4>' in txt else '✗'}")
+print(f"  误把图4装到天使身上: {'无 ✓' if 'Every eye on this body' not in txt else '✗ 仍存在'}")
 
-print("\n=== ④ 音乐随翼增生加厚 ===")
-print(f"  LAYERS UPWARD IN STEP WITH THE WINGS: {'✓' if 'LAYERS UPWARD IN STEP WITH THE WINGS' in MUSIC else '✗'}")
-print(f"  音流 9/s: {'✓' if 'nine attacks per second' in MUSIC else '✗'}")
-print(f"  188BPM: {'✓' if 'near 188 beats per minute' in MUSIC else '✗'}")
-print(f"  悬置未解决+不截断: {'✓' if 'held without resolving' in MUSIC and 'never cut off' in MUSIC else '✗'}")
-print(f"\n六段/镜数: {'subject_definitions' in open(p,encoding='utf-8').read()} / {len(SHOTS)} 镜")
+print("\n=== ④ 运镜（按你指定）===")
+plan = [("[镜1] 大远景含背影", "A wide shot of the first state of <Subject 2>"),
+        ("[镜2] 近景回头斜睨", "her gaze coming to the viewer sidelong"),
+        ("[镜3] 全身", "a full shot of <Subject 1> standing in the meadow"),
+        ("[镜4] 转身", "she turns her whole body to face the lens"),
+        ("[镜5-6] 变形", "the unfolding begins in earnest"),
+        ("[镜7] 定格压迫", "the pressure holds without release")]
+for name, key in plan:
+    print(f"  {name}: {'✓' if key in txt else '✗'}")
+moves = re.findall(r"camera (pushes in|pulls out|arcs|pedestals up|tilts up|holds a static shot)", txt)
+print(f"  运镜类型序列: {moves}")
+
+print("\n=== ⑤ 管风琴配乐 ===")
+org = [("管风琴+全踏板+低男声合唱", "a large pipe organ with its full pedal division and a low male choir"),
+       ("动机参照 Audio1", "follow <Audio 1>"),
+       ("编制为管风琴非交响", "its instrumentation is the organ rather than an orchestra"),
+       ("密集音流 9/s", "nine attacks per second"),
+       ("急促脉动 188BPM", "188 beats per minute"),
+       ("随翼层加厚", "the organ thickens exactly as the wings do"),
+       ("悬置不解决+不截断", "held without resolving")]
+for name, key in org:
+    print(f"  {name}: {'✓' if key in MUSIC else '✗'}")
+print(f"  抽象情绪词: {re.findall(r'warmth|melancholy|cozy|peaceful|tender|ominous|eerie', MUSIC) or '无 ✓'}")
