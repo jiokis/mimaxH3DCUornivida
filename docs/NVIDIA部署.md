@@ -25,6 +25,50 @@ C:\PYTHON\anaconda3\envs\<3DDFAV2/DIFFSRIR/DSenv 等>  ← 图像处理项目
 # → True, RTX 4060
 ```
 
+### ✅ WSL 侧 ffmpeg 可用（2026-09-29 实测修正）
+| 项 | 值 |
+|---|---|
+| 路径 | **`/usr/bin/ffmpeg` · `/usr/bin/ffprobe`** |
+| 版本 | ffmpeg 6.1.1-3ubuntu5（GPL build）|
+| 编码器 | libx264 / libx265 / libvpx / aac |
+| 实测 | 解 1728×960 h264 + aac 正常；抽帧正常；`volumedetect` 正常 |
+
+> ⚠️ **修正**：此前文档写过「本地没有能解 mp4 的 ffmpeg」——**该结论错误**。
+> 根因是最初用 `command -v ffmpeg` 在某个 PATH 环境下探测失败，未复查 `/usr/bin`。
+> 教训：探测工具存在性时**同时查 PATH 与常见绝对路径**（`/usr/bin`、`/usr/local/bin`）。
+
+#### 本地质检配方（无需 SSH 上集群）
+```bash
+# 规格与时长
+ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate \
+        -show_entries format=duration -of default=noprint_wrappers=1 in.mp4
+
+# 抽帧
+ffmpeg -v error -ss 5 -i in.mp4 -frames:v 1 -y frame.png
+
+# 联络表（一眼看全片切点/构图/顺序）
+ffmpeg -v error -i in.mp4 -vf 'fps=2,scale=288:160,tile=8x6' -frames:v 1 -y sheet.png
+
+# 音频响度（非静音校验）
+ffmpeg -hide_banner -i in.mp4 -af volumedetect -f null - 2>&1 | grep mean_volume
+
+# 音轨相关度（成片 vs 音床，PSNR + 相关系数）
+ffmpeg -y -v error -i out.mp4 -vn -acodec pcm_s16le -ac 1 a.wav
+ffmpeg -y -v error -i base.mp4 -vn -acodec pcm_s16le -ac 1 b.wav
+python3 h3_soup/psnr_audio.py a.wav b.wav      # 应 ≥0.999
+```
+
+### 音频分析（FLAC 等）工具链
+| 途径 | 状态 |
+|---|---|
+| WSL `/usr/bin/python3` + soundfile | ❌ 未装（可 pip 装）|
+| Windows `envs/comfyui/python.exe` + soundfile | ✅ **已装 0.14.0**（自带 libsndfile，可解 FLAC）|
+| librosa | ❌ 未装 |
+| 逐帧 FFT 分析脚本 | ✅ `h3_soup/analyze_music.py`（numpy+FFT，无需 librosa）|
+
+> ⚠️ Windows python **读不了 `/mnt/d/...` 路径**（含中文更会乱码）。
+> 对策：先把文件复制到 WSL 内的 ASCII 相对路径，再用相对路径调用。
+
 ## 视频超分（Video2X 调研）
 
 ### Video2X 官方部署受阻
