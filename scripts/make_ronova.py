@@ -145,7 +145,7 @@ shape = ['shaped as a great two-sided wall of feathers, much wider than it is ta
          'two colossal wings open to the left and to the right',
          'every tier longer than the one inside it',
          'two high walls of feathers standing edge to edge across the black lawn',
-         'filling the whole width of the world', 'Its middle is a slowly turning core of feathers',
+         'filling the whole width of the world', 'That core turns slowly on the spot',
          'the left wall out of the left row and the right wall out of the right row']
 miss = [k for k in shape if k not in txt]
 print("  <Subject 3> 剪影几何写全（7 项）: %s %s" % (ok(not miss), miss))
